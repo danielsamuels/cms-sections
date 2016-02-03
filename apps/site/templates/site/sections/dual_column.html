@@ -1,0 +1,38 @@
+{% extends "site/sections/_base.html" %}
+{% load html thumbnail site %}
+
+{% block section_class %}c-section-columned is-{{ section.vertical_alignment }}{% section_contains_image section %}{% endblock %}
+
+{% block section_extra %}style="background-color: {{ section.background_color }}"{% endblock %}
+
+{% block section_content %}
+<div class="l-container">
+  <div class="o-section_content">
+    {% if section.title %}
+    <h2 class="o-section_title fz-large">{{ section.title }}</h2>
+    {% endif %}
+
+    {% if section.text %}
+    <p class="o-section_text fz-small">{{ section.text }}</p>
+    {% endif %}
+
+    <div class="l-split l-split--sm">
+      <div class="l-item">
+        <div class="o-wysiwyg">
+          {{ section.content_left|html }}
+        </div>
+      </div>
+
+      <div class="l-item">
+        <div class="o-wysiwyg">
+          {{ section.content_right|html }}
+        </div>
+      </div>
+    </div>
+
+    {% if section.button_text %}
+    <a class="o-section_action o-button c-button-primary" href="{{ section.button_url }}">{{ section.button_text }}</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

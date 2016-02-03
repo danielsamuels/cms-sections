@@ -5,7 +5,7 @@ $(window).load(function() {
 
   $sections.find('.field-type select').change(renderSectionFields);
 
-  $(document).on("change", ".dynamic-contentsection_set .field-type select", renderSectionFields);
+  $(document).on("change", "[class^=dynamic-][class$=section_set] .field-type select", renderSectionFields);
   // As jQuery event bindings are 'first come first served',
   // showHideSectionFields will be called after the default 'add another
   // section' handler is called. So this will work!
@@ -18,25 +18,9 @@ $(window).load(function() {
 
     var types = {
       '': [],
-      'homepage-hero': ['title', 'text', 'button_text', 'button_url', 'video', 'logo_set', 'logo_set_title'],
-      'landing-hero': ['title', 'text', 'background_image', 'image', 'button_text', 'button_url'],
-      'dynamic-demonstration': ['title', 'content', 'button_text'],
-      'feature-carousel': ['feature_carousel'],
-      'feature-cards': ['title', 'text', 'feature_cards'],
-      'benefit-carousel': ['title', 'text', 'benefit_carousel'],
-      'cards': ['title', 'text', 'cards', 'background_image', 'background_color'],
-      'people': ['title', 'text', 'people'],
-      'feature-page-cards': ['title', 'text', 'feature_page_cards', 'background_image'],
-      'dual-column': ['background_color', 'title', 'text', 'content_left', 'content_right', 'button_text', 'button_url', 'vertical_alignment'],
-      'quote': ['quote', 'quote_logo', 'quote_author', 'quote_author_company', 'background_image', 'logo_set', 'logo_set_title'],
-      'quote-with-image': ['quote', 'quote_author', 'quote_author_company', 'background_image'],
-      'raw-html': ['title', 'text', 'html', 'background_image'],
-      'text-left-image-right': ['content', 'image'],
-      'text-right-image-left': ['content', 'image'],
-      'content': ['content'],
-      'image': ['image'],
-      'keyline': [],
-      'form': ['form'],
+      {% for name, data in types %}
+      '{{ name }}': {{ data.fields|default:'[]'|safe }}{% if not forloop.last %},{% endif %}
+      {% endfor %}
     };
 
     $sections.each(function () {

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% load site %}
+
+{% block main %}
+  {% for section in pages.current.contentsection_set.all %}
+    {% section section %}
+  {% endfor %}
+{% endblock %}

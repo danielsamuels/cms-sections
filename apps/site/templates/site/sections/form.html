@@ -1,0 +1,40 @@
+{% extends "site/sections/_base.html" %}
+{% load html thumbnail forms %}
+
+{% block section_class %}c-section-html{% endblock %}
+{% block section_extra %}
+  {% if section.background_image %}
+    style="background-image:url({% thumbnail section.background_image.file '1700' %});"
+  {% endif %}
+{% endblock %}
+
+{% block section_content %}
+{% get_form section as form %}
+
+{% if form %}
+  <div class="l-container">
+    {% if section.form.title %}
+      <h2 class="o-section_title fz-large">{{ section.form.title }}</h2>
+    {% endif %}
+
+    {% if section.form.description %}
+      <p class="o-section_text">{{ section.form.description|linebreaksbr }}</p>
+    {% endif %}
+
+    <form class="o-form section-form" action="{% url 'forms:endpoint' %}" method="post" data-section-pk="{{ section.pk }}" {% if section.form.success_url  %}data-success-url="{{ section.form.success_url }}"{% endif %}>
+      {% csrf_token %}
+      <input type="hidden" name="form" value="{{ section.form_id }}">
+
+      <div class="l-split l-split--sm">
+        {% for field in form.fields %}
+          {% form_field %}
+        {% endfor %}
+      </div>
+
+      <div class="o-form_group">
+        <input type="submit" class="o-button c-button-primary" value="Submit">
+      </div>
+    </form>
+  </div>
+{% endif %}
+{% endblock %}
