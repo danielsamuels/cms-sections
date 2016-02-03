@@ -6,25 +6,27 @@ from django.shortcuts import render_to_response
 
 SECTION_TYPES = (
     ("homepage-hero", {
-        "name": "Homepage hero",
         "fields": ['title', 'text', 'button_text', 'button_url'],
     }),
     ("landing-hero", {
-        "name": "Landing hero",
         "fields": ['title', 'text', 'image', 'button_text', 'button_url'],
     }),
     ("dual-column", {
-        "name": "Dual column",
         "fields": ['title', 'text', 'button_text', 'button_url'],
     }),
     ("form", {
-        "name": "Form",
+        "name": "Form builder",
         "fields": [],
     }),
-    ("keyline", {
-        "name": "Keyline",
-    })
+    ("keyline", {})
 )
+
+
+def get_section_name(obj):
+    if 'name' in obj[1]:
+        return obj[1]['name']
+
+    return obj[0][0].upper() + obj[0][1:].replace('-', ' ')
 
 
 def sections_js(request):
@@ -40,7 +42,7 @@ class SectionBase(models.Model):
     )
 
     type = models.CharField(
-        choices=[(s[0], s[1]['name']) for s in SECTION_TYPES],
+        choices=[(s[0], get_section_name(s)) for s in SECTION_TYPES],
         max_length=100,
     )
 
