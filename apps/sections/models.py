@@ -30,6 +30,17 @@ def get_section_name(obj):
 
 
 def sections_js(request):
+    model_fields = [field.name for field in SectionBase._meta.fields]
+    for section_type in SECTION_TYPES:
+        fields = section_type[1].get('fields', [])
+
+        for field in fields:
+            if field not in model_fields:
+                print "NOTE: Field `{}` is referenced by section type `{}`, but doesn't exist.".format(
+                    field,
+                    section_type[0]
+                )
+
     return render_to_response('admin/pages/page/sections.js', {
         'types': SECTION_TYPES,
     }, content_type='application/javascript')
