@@ -8,7 +8,7 @@ register = template.Library()
 def section(context, page_section):
     context.update({'section': page_section})
 
-    return render_to_string('site/sections/{}'.format(
+    return render_to_string('sections/types/{}'.format(
         page_section.template
     ), context)
 
