@@ -111,10 +111,10 @@ class SectionBase(models.Model):
 
 
 class ContentSection(SectionBase):
-
-    def __unicode__(self):
-        return self.__str__()
+    pass
 
 
 class Content(ContentBase):
-    pass
+
+    def __unicode__(self):
+        return self.page.title
