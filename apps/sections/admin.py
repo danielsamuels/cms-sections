@@ -10,7 +10,7 @@ class ContentSectionInline(admin.StackedInline):
     extra = 1
     filter_horizontal = ('people',)
 
-    class Media:
+    class Media(object):
         js = [reverse_lazy('admin_sections_js')]
 
 

@@ -14,11 +14,11 @@ def section(context, page_section):
 
 
 @register.simple_tag(takes_context=True)
-def section_contains_image(context, section):
-    if not section.content_left or not section.content_right:
+def section_contains_image(context, section_obj):
+    if not section_obj.content_left or not section_obj.content_right:
         return ''
 
-    if any('<img' in s for s in[section.content_left, section.content_right]):
+    if any('<img' in s for s in[section_obj.content_left, section_obj.content_right]):
         return 'has-media'
 
     return ''
