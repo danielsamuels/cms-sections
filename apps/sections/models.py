@@ -30,7 +30,7 @@ def get_section_name(obj):
 
 
 def sections_js(request):
-    model_fields = [field.name for field in SectionBase._meta.fields]
+    model_fields = SectionBase._meta.get_all_field_names()
     for section_type in SECTION_TYPES:
         fields = section_type[1].get('fields', [])
 
