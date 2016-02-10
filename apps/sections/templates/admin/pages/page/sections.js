@@ -5,7 +5,7 @@ $(window).load(function() {
 
   $sections.find('.field-type select').change(renderSectionFields);
 
-  $(document).on("change", "[class^=dynamic-][class$=section_set] .field-type select", renderSectionFields);
+  $(document).on("change", "[class*=section_set] .field-type select", renderSectionFields);
   // As jQuery event bindings are 'first come first served',
   // showHideSectionFields will be called after the default 'add another
   // section' handler is called. So this will work!
