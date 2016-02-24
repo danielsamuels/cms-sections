@@ -1,0 +1,6 @@
+.inline-related[class*=section_set] + .inline-related[class*=section_set] {
+  margin-top: 30px;
+  padding-top: 30px;
+
+  border-top: 1px solid #dedede;
+}
