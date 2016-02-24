@@ -13,5 +13,8 @@ class ContentSectionInline(admin.StackedInline):
     class Media(object):
         js = [reverse_lazy('admin_sections_js')]
 
+        css = {
+            'all': ['/static/css/admin-sections.css'],
+        }
 
 page_admin.register_content_inline(Content, ContentSectionInline)
