@@ -5,20 +5,30 @@ from django.db import models
 from django.shortcuts import render_to_response
 
 SECTION_TYPES = (
-    ("homepage-hero", {
-        "fields": ['title', 'text', 'button_text', 'button_url'],
+    ("Heros", {
+        "sections": [
+            ("homepage-hero", {
+                "fields": ['title', 'text', 'button_text', 'button_url'],
+            }),
+            ("landing-hero", {
+                "fields": ['title', 'text', 'image', 'button_text', 'button_url'],
+            }),
+        ]
     }),
-    ("landing-hero", {
-        "fields": ['title', 'text', 'image', 'button_text', 'button_url'],
+    ("Text", {
+        "sections": [
+            ("dual-column", {
+                "fields": ['title', 'text', 'button_text', 'button_url'],
+            }),
+        ]
     }),
-    ("dual-column", {
-        "fields": ['title', 'text', 'button_text', 'button_url'],
-    }),
-    ("form", {
-        "name": "Form builder",
-        "fields": [],
-    }),
-    ("keyline", {})
+    ("Misc", {
+        "sections": [
+            ("keyline", {
+                "fields": []
+            })
+        ]
+    })
 )
 
 
@@ -31,19 +41,53 @@ def get_section_name(obj):
 
 def sections_js(request):
     model_fields = SectionBase._meta.get_all_field_names()
-    for section_type in SECTION_TYPES:
-        fields = section_type[1].get('fields', [])
+    # Since our sections aren't at the top level we'll need to create an array
+    # of them when we are iterating
+    sections = []
 
-        for field in fields:
-            if field not in model_fields:
-                print "NOTE: Field `{}` is referenced by section type `{}`, but doesn't exist.".format(
-                    field,
-                    section_type[0]
-                )
+    # Each optgroup we define
+    for group in SECTION_TYPES:
+        # Every section that appears in the optgroup
+        for section_type in group[1]['sections']:
+            fields = section_type[1].get('fields', [])
+
+            # We've got a section so lets add it to the sections list
+            sections.append({
+                'name': section_type[0],
+                'fields': fields
+            })
+
+            for field in fields:
+                if field not in model_fields:
+                    print "NOTE: Field `{}` is referenced by section type `{}`, but doesn't exist.".format(
+                        field,
+                        section_type[0]
+                    )
 
     return render_to_response('admin/pages/page/sections.js', {
-        'types': SECTION_TYPES,
+        'types': sections,
     }, content_type='application/javascript')
+
+
+def get_section_type_choices(types):
+    # Will be used to build up our optgroup's
+    groups = []
+
+    for section_group in SECTION_TYPES:
+        label = section_group[0]
+        content = section_group[1]
+
+        # We'll need to build a tuple of the section option value & option name
+        sections = []
+
+        for section in content['sections']:
+            section_label = section[0]
+
+            sections.append((slugify(section_label), get_section_name(section)))
+
+        groups.append((label, sections))
+
+    return groups
 
 
 class SectionBase(models.Model):
@@ -53,7 +97,7 @@ class SectionBase(models.Model):
     )
 
     type = models.CharField(
-        choices=[(s[0], get_section_name(s)) for s in SECTION_TYPES],
+        choices=get_section_type_choices(SECTION_TYPES),
         max_length=100,
     )
 
