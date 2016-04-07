@@ -3,6 +3,7 @@ from cms.apps.pages.models import ContentBase, Page
 from cms.models import HtmlField
 from django.db import models
 from django.shortcuts import render_to_response
+from django.utils.text import slugify
 
 SECTION_TYPES = (
     ("Heros", {
