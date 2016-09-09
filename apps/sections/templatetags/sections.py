@@ -1,19 +1,25 @@
+import jinja2
+
 from django import template
 from django.template.loader import render_to_string
+from django_jinja import library
 
 register = template.Library()
 
 
-@register.simple_tag(takes_context=True)
-def section(context, page_section):
-    context.update({'section': page_section})
-
+@library.global_function
+@jinja2.contextfunction
+def render_section(context, page_section):
     return render_to_string('sections/types/{}'.format(
         page_section.template
-    ), context)
+    ), {
+        'context': context,
+        'section': page_section
+    })
 
 
-@register.simple_tag(takes_context=True)
+@library.global_function
+@jinja2.contextfunction
 def section_contains_image(context, section_obj):
     if not section_obj.content_left or not section_obj.content_right:
         return ''
