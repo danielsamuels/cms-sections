@@ -2,7 +2,6 @@
 
 {% block main %}
   {% for section in pages.current.contentsection_set.all() %}
-    {{ section }}
     {{ render_section(section) }}
   {% endfor %}
 {% endblock %}
