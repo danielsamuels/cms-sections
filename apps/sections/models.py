@@ -60,7 +60,7 @@ def sections_js(request):
 
             for field in fields:
                 if field not in model_fields:
-                    print 'NOTE: Field `{}` is referenced by section type `{}`, but doesn't exist.'.format(
+                    print 'NOTE: Field `{}` is referenced by section type `{}`, but doesn\'t exist.'.format(
                         field,
                         section_type[0]
                     )
