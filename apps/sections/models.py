@@ -6,27 +6,27 @@ from django.shortcuts import render_to_response
 from django.utils.text import slugify
 
 SECTION_TYPES = (
-    ("Heros", {
-        "sections": [
-            ("homepage-hero", {
-                "fields": ['title', 'text', 'button_text', 'button_url'],
+    ('Heros', {
+        'sections': [
+            ('homepage-hero', {
+                'fields': ['title', 'text', 'button_text', 'button_url'],
             }),
-            ("landing-hero", {
-                "fields": ['title', 'text', 'image', 'button_text', 'button_url'],
-            }),
-        ]
-    }),
-    ("Text", {
-        "sections": [
-            ("dual-column", {
-                "fields": ['title', 'text', 'button_text', 'button_url'],
+            ('landing-hero', {
+                'fields': ['title', 'text', 'image', 'button_text', 'button_url'],
             }),
         ]
     }),
-    ("Misc", {
-        "sections": [
-            ("keyline", {
-                "fields": []
+    ('Text', {
+        'sections': [
+            ('dual-column', {
+                'fields': ['title', 'text', 'button_text', 'button_url'],
+            }),
+        ]
+    }),
+    ('Misc', {
+        'sections': [
+            ('keyline', {
+                'fields': []
             })
         ]
     })
@@ -60,7 +60,7 @@ def sections_js(request):
 
             for field in fields:
                 if field not in model_fields:
-                    print "NOTE: Field `{}` is referenced by section type `{}`, but doesn't exist.".format(
+                    print 'NOTE: Field `{}` is referenced by section type `{}`, but doesn't exist.'.format(
                         field,
                         section_type[0]
                     )
@@ -130,7 +130,7 @@ class SectionBase(models.Model):
     )
 
     button_url = models.CharField(
-        "button URL",
+        'button URL',
         max_length=200,
         blank=True,
         null=True,
@@ -138,7 +138,7 @@ class SectionBase(models.Model):
 
     order = models.PositiveIntegerField(
         default=0,
-        help_text="Order which the section will be displayed",
+        help_text='Order which the section will be displayed',
     )
 
     class Meta:

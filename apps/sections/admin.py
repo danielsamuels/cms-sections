@@ -8,7 +8,7 @@ from .models import Content, ContentSection
 class ContentSectionInline(admin.StackedInline):
     model = ContentSection
     extra = 1
-    filter_horizontal = ('people',)
+    filter_horizontal = ['people']
 
     class Media(object):
         js = [reverse_lazy('admin_sections_js')]
