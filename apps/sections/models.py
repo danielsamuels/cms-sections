@@ -150,9 +150,7 @@ class SectionBase(models.Model):
 
     @property
     def template(self):
-        return '{}.html'.format(
-            self.type.replace('-', '_')
-        )
+        return self.type + '.html'
 
 
 class ContentSection(SectionBase):
