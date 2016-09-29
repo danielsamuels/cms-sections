@@ -1,6 +1,7 @@
 import jinja2
 
 from django import template
+from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django_jinja import library
 
@@ -13,7 +14,7 @@ def render_section(context, page_section):
     try:
         context = dict(context)
         context['section'] = page_section
-    
+
         return render_to_string('sections/types/{}'.format(page_section.template), context)
     except TemplateDoesNotExist as e:
         import os
@@ -28,7 +29,7 @@ def render_section(context, page_section):
         else:
             raise e
 
-            
+
 @library.global_function
 @jinja2.contextfunction
 def section_contains_image(context, section_obj):
