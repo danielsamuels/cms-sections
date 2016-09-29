@@ -11,12 +11,10 @@ register = template.Library()
 @jinja2.contextfunction
 def render_section(context, page_section):
     try:
-        return render_to_string('sections/types/{}'.format(
-            page_section.template
-        ), {
-            'context': context,
-            'section': page_section
-        })
+        context = dict(context)
+        context['section'] = page_section
+    
+        return render_to_string('sections/types/{}'.format(page_section.template), context)
     except TemplateDoesNotExist as e:
         import os
         from django.conf import settings
