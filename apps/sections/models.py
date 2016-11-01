@@ -6,7 +6,7 @@ from django.shortcuts import render_to_response
 from django.utils.text import slugify
 
 SECTION_TYPES = (
-    ('Heros', {
+    ('Heroes', {
         'sections': [
             ('homepage-hero', {
                 'fields': ['title', 'text', 'button_text', 'button_url'],
