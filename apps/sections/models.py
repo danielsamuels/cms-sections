@@ -71,7 +71,7 @@ def sections_js(request):
 
 
 def get_section_type_choices(types):
-    # Will be used to build up our optgroup's
+    # Will be used to build up our optgroups
     groups = []
 
     for section_group in SECTION_TYPES:

@@ -1,9 +1,11 @@
 import jinja2
-
 from django import template
 from django.template import TemplateDoesNotExist
 from django.template.loader import render_to_string
 from django_jinja import library
+
+from ..models import get_section_name as get_section_name_base
+from ..models import SECTION_TYPES
 
 register = template.Library()
 
@@ -40,3 +42,22 @@ def section_contains_image(context, section_obj):
         return 'has-media'
 
     return ''
+
+
+@register.inclusion_tag('admin/pages/page/type_modal.html')
+def render_type_modal():
+    return {
+        'section_types': SECTION_TYPES
+    }
+
+
+@register.simple_tag
+def get_section_name(obj):
+    if isinstance(obj, tuple):
+        return get_section_name_base(obj)
+
+    # We have the section type as a string.
+    for _, sections in SECTION_TYPES:
+        for section in sections['sections']:
+            if section[0] == obj:
+                return get_section_name_base(section)
