@@ -1,11 +1,10 @@
-from django.core.management.base import BaseCommand
+import os
 import urllib
 
 from django.conf import settings
+from django.core.management.base import BaseCommand
 
 from ...models import SECTION_TYPES
-
-import os
 
 IMAGE_ROOT = os.path.join(settings.SITE_ROOT, 'assets/img/sections/')
 IMAGE_URL = 'https://github.com/onespacemedia/cms-icons/raw/master/png/i-_{}.png'
