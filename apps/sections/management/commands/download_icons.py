@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 import os
 import urllib
 
@@ -27,7 +29,7 @@ class Command(BaseCommand):
         ]
 
         for icon in icons:
-            print IMAGE_URL.format(icon)
+            print(IMAGE_URL.format(icon))
             urllib.urlretrieve(
                 IMAGE_URL.format(icon),
                 os.path.join(IMAGE_ROOT, icon + '.png')

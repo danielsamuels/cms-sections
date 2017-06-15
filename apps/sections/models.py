@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 from cms.apps.media.models import ImageRefField
 from cms.apps.pages.models import ContentBase, Page
 from cms.models import HtmlField
@@ -60,10 +62,10 @@ def sections_js(request):
 
             for field in fields:
                 if field not in model_fields:
-                    print 'NOTE: Field `{}` is referenced by section type `{}`, but doesn\'t exist.'.format(
+                    print('NOTE: Field `{}` is referenced by section type `{}`, but doesn\'t exist.'.format(
                         field,
                         section_type[0]
-                    )
+                    ))
 
     return render_to_response('admin/pages/page/sections.js', {
         'types': sections,
