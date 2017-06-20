@@ -1,7 +1,7 @@
 from __future__ import print_function
 
 import os
-import urllib
+import urllib.request
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -30,7 +30,8 @@ class Command(BaseCommand):
 
         for icon in icons:
             print(IMAGE_URL.format(icon))
-            urllib.urlretrieve(
+
+            urllib.request.urlretrieve(
                 IMAGE_URL.format(icon),
-                os.path.join(IMAGE_ROOT, icon + '.png')
+                os.path.join(IMAGE_ROOT, f'{icon}.png')
             )

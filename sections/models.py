@@ -62,10 +62,7 @@ def sections_js(request):
 
             for field in fields:
                 if field not in model_fields:
-                    print('NOTE: Field `{}` is referenced by section type `{}`, but doesn\'t exist.'.format(
-                        field,
-                        section_type[0]
-                    ))
+                    print(f"NOTE: Field `{field}` is referenced by section type `{section_type[0]}`, but doesn't exist.")
 
     return render_to_response('admin/pages/page/sections.js', {
         'types': sections,
@@ -145,23 +142,23 @@ class SectionBase(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ('order',)
+        ordering = ['order']
 
-    def __unicode__(self):
+    def __str__(self):
         return dict(SECTION_TYPES)[self.type]['name']
 
     @property
     def template(self):
-        return self.type + '.html'
+        return f'{self.type}.html'
 
 
 class ContentSection(SectionBase):
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 
 class Content(ContentBase):
 
-    def __unicode__(self):
+    def __str__(self):
         return self.page.title

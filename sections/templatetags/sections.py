@@ -23,9 +23,7 @@ def render_section(context, page_section):
         from django.conf import settings
 
         if settings.DEBUG:
-            os.system('touch {{ project_name }}/apps/sections/templates/sections/types/{}'.format(
-                page_section.template,
-            ))
+            os.system(f'touch {{ project_name }}/apps/sections/templates/sections/types/{page_section.template}')
 
             return ''
         else:
