@@ -43,7 +43,7 @@ def get_section_name(obj):
 
 
 def sections_js(request):
-    model_fields = SectionBase._meta.get_all_field_names()
+    model_fields = SectionBase._meta.get_fields()
     # Since our sections aren't at the top level we'll need to create an array
     # of them when we are iterating
     sections = []
